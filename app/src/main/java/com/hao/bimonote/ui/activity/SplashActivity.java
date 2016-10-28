@@ -5,20 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.hao.bimonote.R;
 import com.hao.bimonote.base.BaseActivity;
 import com.hao.bimonote.base.BasePresenter;
 import com.hao.bimonote.base.BaseView;
 import com.hao.bimonote.widget.WindmillView;
+
 import butterknife.BindView;
 
-public class SplashActivity extends BaseActivity<BasePresenter> implements BaseView{
+public class SplashActivity extends BaseActivity<BasePresenter> implements BaseView {
 
     @BindView(R.id.bt_start_open)
     Button mBtStartOpen;
@@ -30,6 +30,8 @@ public class SplashActivity extends BaseActivity<BasePresenter> implements BaseV
     TextView mTvTitleTop;
     @BindView(R.id.tv_title_bottom)
     TextView mTvTitleBottom;
+    @BindView(R.id.tv_text_bottom)
+    TextView mTvTextBottom;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -40,18 +42,19 @@ public class SplashActivity extends BaseActivity<BasePresenter> implements BaseV
     protected void initViews(Bundle savedInstanceState) {
         mWindmillOne.startAnimation();
         mWindmillTwo.startAnimation();
-        int height=mTvTitleTop.getMeasuredHeight();
-        TranslateAnimation translateAnimation=new TranslateAnimation(0f,0f,0f,-120f);
+        int height = mTvTitleTop.getMeasuredHeight();
+        TranslateAnimation translateAnimation = new TranslateAnimation(0f, 0f, 0f, -150f);
         translateAnimation.setDuration(1000);
         translateAnimation.setInterpolator(new LinearInterpolator());
         translateAnimation.setFillAfter(true);
         mTvTitleTop.setAnimation(translateAnimation);
 
-        final AlphaAnimation alphaAnimation=new AlphaAnimation(0f,1f);
+        final AlphaAnimation alphaAnimation = new AlphaAnimation(0f, 1f);
         alphaAnimation.setFillAfter(true);
         alphaAnimation.setInterpolator(new LinearInterpolator());
         alphaAnimation.setDuration(1500);
         mTvTitleBottom.setAnimation(alphaAnimation);
+        mTvTextBottom.setAnimation(alphaAnimation);
 
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -61,7 +64,7 @@ public class SplashActivity extends BaseActivity<BasePresenter> implements BaseV
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                 alphaAnimation.start();
+                alphaAnimation.start();
             }
 
             @Override
@@ -72,13 +75,10 @@ public class SplashActivity extends BaseActivity<BasePresenter> implements BaseV
         translateAnimation.start();
 
 
-
         mBtStartOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-
-                finish();
             }
         });
     }
@@ -121,4 +121,5 @@ public class SplashActivity extends BaseActivity<BasePresenter> implements BaseV
     public void showErrorMessage(String msg) {
 
     }
+
 }
