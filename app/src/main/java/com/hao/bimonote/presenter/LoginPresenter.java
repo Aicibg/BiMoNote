@@ -2,6 +2,7 @@ package com.hao.bimonote.presenter;
 
 import android.text.TextUtils;
 
+import com.hao.bimonote.bean.User;
 import com.hao.bimonote.contract.LoginContract;
 import com.hao.bimonote.model.LoginModel;
 
@@ -20,8 +21,9 @@ public class LoginPresenter extends LoginContract.Presenter {
     @Override
     public void login(String name, String password) {
         view.showProgress("正在加载");
-        if (TextUtils.isEmpty(name) & TextUtils.isEmpty(password)) {
-            if (name.equals(model.getUser().getUserName()) & password.equals(model.getUser().getUserPassword())) {
+        User user=model.getUser();
+        if (!TextUtils.isEmpty(name) & !TextUtils.isEmpty(password)) {
+            if (name.equals(user.getUserName()) & password.equals(user.getUserPassword())) {
                 view.loginSuccess();
             } else {
                 view.loginFailed();

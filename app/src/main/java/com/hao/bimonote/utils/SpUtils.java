@@ -17,11 +17,12 @@ public class SpUtils {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_data";
-    private static SharedPreferences sp;
+    public final String FILE_NAME = "share_data";
+    public final SharedPreferences sp;
 
-    public static void init(Context context){
-         sp= PreferenceManager.getDefaultSharedPreferences(context);
+    public SpUtils(Context context) {
+        sp=context.getSharedPreferences(FILE_NAME,
+                0);
     }
 
     /**
@@ -31,7 +32,7 @@ public class SpUtils {
      * @param key
      * @param object
      */
-    public static void put( String key, Object object)
+    public  void put( String key, Object object)
     {
         SharedPreferences.Editor editor = sp.edit();
 
@@ -66,7 +67,7 @@ public class SpUtils {
      * @param defaultObject
      * @return
      */
-    public static Object get(String key, Object defaultObject)
+    public  Object get(String key, Object defaultObject)
     {
         if (defaultObject instanceof String)
         {
@@ -90,11 +91,13 @@ public class SpUtils {
 
     /**
      * 移除某个key值已经对应的值
-     * @param
+     * @param context
      * @param key
      */
-    public static void remove(String key)
+    public  void remove(Context context, String key)
     {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         SharedPreferencesCompat.apply(editor);
@@ -102,10 +105,12 @@ public class SpUtils {
 
     /**
      * 清除所有数据
-     * @param
+     * @param context
      */
-    public static void clear()
+    public  void clear(Context context)
     {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         SharedPreferencesCompat.apply(editor);
@@ -113,23 +118,27 @@ public class SpUtils {
 
     /**
      * 查询某个key是否已经存在
-     * @param
+     * @param context
      * @param key
      * @return
      */
-    public static boolean contains(String key)
+    public  boolean contains(Context context, String key)
     {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
         return sp.contains(key);
     }
 
     /**
      * 返回所有的键值对
      *
-     * @param
+     * @param context
      * @return
      */
-    public static Map<String, ?> getAll()
+    public  Map<String, ?> getAll(Context context)
     {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
         return sp.getAll();
     }
 
@@ -139,7 +148,7 @@ public class SpUtils {
      * @author zhy
      *
      */
-    private static class SharedPreferencesCompat
+    private  static class SharedPreferencesCompat
     {
         private static final Method sApplyMethod = findApplyMethod();
 
@@ -186,5 +195,4 @@ public class SpUtils {
             editor.commit();
         }
     }
-
 }

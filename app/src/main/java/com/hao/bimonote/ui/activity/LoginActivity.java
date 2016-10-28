@@ -2,15 +2,20 @@ package com.hao.bimonote.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hao.bimonote.NoteApplication;
 import com.hao.bimonote.R;
 import com.hao.bimonote.base.BaseActivity;
 import com.hao.bimonote.contract.LoginContract;
 import com.hao.bimonote.presenter.LoginPresenter;
-import com.hao.bimonote.ui.MainActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,6 +29,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     Button mBtLogin;
     @BindView(R.id.bt_register)
     Button mBtRegister;
+    @BindView(R.id.top_bar_title)
+    TextView mTopBarTitle;
+
 
     @Override
     protected int getContentViewLayoutID() {
@@ -33,9 +41,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void initViews(Bundle savedInstanceState) {
         mPresenter = new LoginPresenter(this);
+        mTopBarTitle.setText("登录");
         mBtLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("test", (String) NoteApplication.mSpUtils.get("userName", "-1") + NoteApplication.mSpUtils.get("userName", "-1"));
                 mPresenter.login(mEtUserName.getText().toString(), mEtUserPassword.getText().toString());
             }
         });
@@ -72,7 +82,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void close() {
-         finish();
+        finish();
     }
 
     @Override
@@ -88,5 +98,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected View getLoadingTargetView() {
         return ButterKnife.findById(this, R.id.activity_login);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

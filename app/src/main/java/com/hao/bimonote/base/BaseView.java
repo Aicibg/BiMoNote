@@ -6,8 +6,6 @@ package com.hao.bimonote.base;
  */
 
 public interface BaseView {
-    void showProgress(String msg);
-    void hideProgress();
     void close();
 
     void showMessage(String msg);

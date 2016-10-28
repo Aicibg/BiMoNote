@@ -80,7 +80,7 @@ public abstract class BaseAppCompatFragment extends SupportFragment {
         if (getArguments()!=null){
             getArgumentsBundle(getArguments());
         }
-//        ButterKnife.bind(getActivity());
+
         if (null != getLoadingTargetView()) {
             mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
         }

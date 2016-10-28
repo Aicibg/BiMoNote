@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
  * Description:
  */
 
-public abstract class BaseActivity <V extends BasePresenter >extends BaseAppCompatActivity {
+public abstract class BaseActivity <V extends BasePresenter >extends BaseAppCompatActivity implements BaseView {
     protected V mPresenter;
 
     @Override
@@ -23,6 +23,8 @@ public abstract class BaseActivity <V extends BasePresenter >extends BaseAppComp
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
+        if (mPresenter!=null){
+            mPresenter.detachView();
+        }
     }
 }

@@ -10,20 +10,24 @@ import com.hao.bimonote.bean.User;
  * Description:
  */
 
-public  interface LoginContract {
-     interface Model extends BaseModel {
+public interface LoginContract {
+    interface Model extends BaseModel {
         User getUser();
 
         void saveUser(String name, String password);
     }
 
-     interface View extends BaseView {
+    interface View extends BaseView {
+        void showProgress(String msg);
+
+        void hideProgress();
+
         void loginSuccess();
 
         void loginFailed();
     }
 
-     abstract class Presenter implements BasePresenter<View, Model> {
+    abstract class Presenter implements BasePresenter<View, Model> {
         protected View view;
         protected Model model;
 

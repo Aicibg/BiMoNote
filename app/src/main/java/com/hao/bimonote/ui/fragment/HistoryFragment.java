@@ -7,19 +7,19 @@ import com.hao.bimonote.R;
 import com.hao.bimonote.base.BaseFragment;
 
 /**
- * Created by DongHao on 2016/10/27
+ * Created by DongHao on 2016/10/28
  * Description:
  */
 
-public class MainFragment extends BaseFragment {
+public class HistoryFragment extends BaseFragment {
 
-    public static MainFragment newInstance() {
-        return new MainFragment();
+    public static HistoryFragment newInstance() {
+        return new HistoryFragment();
     }
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.fragment_main;
+        return R.layout.fragment_history;
     }
 
     @Override

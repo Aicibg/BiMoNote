@@ -10,10 +10,12 @@ import com.hao.bimonote.utils.SpUtils;
  */
 
 public class NoteApplication extends Application {
-
+  public static SpUtils mSpUtils;
     @Override
     public void onCreate() {
         super.onCreate();
-        SpUtils.init(getApplicationContext());
+       if (mSpUtils==null){
+           mSpUtils=new SpUtils(getApplicationContext());
+       }
     }
 }
