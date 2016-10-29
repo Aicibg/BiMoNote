@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Description:
  */
 
-public abstract class BaseFragment<V extends BasePresenter> extends BaseAppCompatFragment implements BaseView {
+public abstract class BaseFragment<V extends BasePresenterMpl> extends BaseAppCompatFragment implements BaseView {
     protected V mPresenter;
 
     @Nullable
@@ -26,11 +26,4 @@ public abstract class BaseFragment<V extends BasePresenter> extends BaseAppCompa
         return rootView;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mPresenter!=null){
-            mPresenter.detachView();
-        }
-    }
 }

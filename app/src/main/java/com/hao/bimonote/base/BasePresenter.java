@@ -1,10 +1,11 @@
 package com.hao.bimonote.base;
 
 /**
- * Created by DongHao on 2016/10/27
+ * Created by DongHao on 2016/10/30
  * Description:
  */
 
-public interface BasePresenter<T extends BaseView, V extends BaseModel> {
+public interface BasePresenter {
+    void initialized();
     void detachView();
 }

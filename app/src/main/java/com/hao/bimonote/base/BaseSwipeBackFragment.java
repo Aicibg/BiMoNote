@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Description:
  */
 
-public abstract class BaseSwipeBackFragment<V extends BasePresenter> extends BaseSwipeBackCompatFragment implements BaseView{
+public abstract class BaseSwipeBackFragment<V extends BasePresenterMpl> extends BaseSwipeBackCompatFragment implements BaseView{
     protected V mPresenter;
 
     @Nullable
@@ -29,8 +29,5 @@ public abstract class BaseSwipeBackFragment<V extends BasePresenter> extends Bas
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mPresenter!=null){
-            mPresenter.detachView();
-        }
     }
 }

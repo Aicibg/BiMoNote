@@ -1,5 +1,6 @@
 package com.hao.bimonote.base;
 
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
 import com.hao.library.base.BaseAppCompatActivity;
@@ -11,7 +12,7 @@ import butterknife.ButterKnife;
  * Description:
  */
 
-public abstract class BaseActivity <V extends BasePresenter >extends BaseAppCompatActivity implements BaseView {
+public abstract class BaseActivity <V extends BasePresenterMpl>extends BaseAppCompatActivity implements BaseView {
     protected V mPresenter;
 
     @Override
@@ -20,11 +21,9 @@ public abstract class BaseActivity <V extends BasePresenter >extends BaseAppComp
         ButterKnife.bind(this);
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter!=null){
-            mPresenter.detachView();
-        }
     }
 }

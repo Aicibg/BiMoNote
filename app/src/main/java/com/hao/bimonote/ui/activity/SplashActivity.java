@@ -12,13 +12,13 @@ import android.widget.TextView;
 
 import com.hao.bimonote.R;
 import com.hao.bimonote.base.BaseActivity;
-import com.hao.bimonote.base.BasePresenter;
+import com.hao.bimonote.base.BasePresenterMpl;
 import com.hao.bimonote.base.BaseView;
 import com.hao.bimonote.widget.WindmillView;
 
 import butterknife.BindView;
 
-public class SplashActivity extends BaseActivity<BasePresenter> implements BaseView {
+public class SplashActivity extends BaseActivity<BasePresenterMpl> implements BaseView {
 
     @BindView(R.id.bt_start_open)
     Button mBtStartOpen;

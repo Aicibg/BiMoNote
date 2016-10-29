@@ -1,7 +1,7 @@
 package com.hao.bimonote.contract;
 
 import com.hao.bimonote.base.BaseModel;
-import com.hao.bimonote.base.BasePresenter;
+import com.hao.bimonote.base.BasePresenterMpl;
 import com.hao.bimonote.base.BaseView;
 import com.hao.bimonote.bean.User;
 
@@ -27,12 +27,11 @@ public interface LoginContract {
         void loginFailed();
     }
 
-    abstract class Presenter implements BasePresenter<View, Model> {
-        protected View view;
-        protected Model model;
+    abstract class Presenter extends BasePresenterMpl<View, Model> {
 
         public abstract void login(String name, String password);
 
         public abstract void saveUser(String name, String password);
+
     }
 }

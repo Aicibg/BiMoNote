@@ -40,10 +40,16 @@ public class LoginPresenter extends LoginContract.Presenter {
         view.showMessage("保存成功");
     }
 
+
+    @Override
+    public void initialized() {
+
+    }
+
     @Override
     public void detachView() {
-          if (view!=null){
-              view=null;
-          }
+           if (view!=null){
+               view=null;
+           }
     }
 }
