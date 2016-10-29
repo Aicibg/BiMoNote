@@ -100,10 +100,4 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         return ButterKnife.findById(this, R.id.activity_login);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

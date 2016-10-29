@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
       android:id="@+id/item_main"
-      android:icon="@drawable/ic_main"
+      android:icon="@mipmap/main_icon"
       android:title="主页"/>
 
     <item
         android:id="@+id/item_class"
-        android:icon="@drawable/ic_main"
+        android:icon="@mipmap/history_icon"
         android:title="记录"/>
 
     <item
         android:id="@+id/item_personal"
-        android:icon="@drawable/ic_main"
+        android:icon="@mipmap/personal_icon"
         android:title="个人"/>
 </menu>

@@ -3,28 +3,31 @@ package com.hao.bimonote.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.dhao.eventbuslibrary.EventBus;
+import com.dhao.eventbuslibrary.meta.EventCenter;
 import com.hao.bimonote.R;
 import com.hao.bimonote.base.BaseActivity;
-import com.hao.bimonote.base.BaseFragment;
 import com.hao.bimonote.ui.fragment.HistoryFragment;
+import com.hao.bimonote.ui.fragment.HistoryParentFragment;
 import com.hao.bimonote.ui.fragment.MainFragment;
+import com.hao.bimonote.ui.fragment.MainParentFragment;
 import com.hao.bimonote.ui.fragment.PersonalFragment;
+import com.hao.bimonote.ui.fragment.PersonalParentFragment;
+import com.hao.bimonote.utils.Constant;
+import com.hao.library.base.BaseAppCompatFragment;
 
 import butterknife.BindView;
+import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNavigation;
-    @BindView(R.id.top_bar_title)
-    TextView mTopBarTitle;
 
-    private BaseFragment[] fragments=new BaseFragment[3];
-    private int prePosition=0;
+    private BaseAppCompatFragment[] fragments = new BaseAppCompatFragment[3];
+    private int prePosition = 0;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -33,39 +36,53 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        mTopBarTitle.setText("笔墨");
-        if (savedInstanceState==null){
-            fragments[0]= MainFragment.newInstance();
-            fragments[1]= HistoryFragment.newInstance();
-            fragments[2]= PersonalFragment.newInstance();
-            loadMultipleRootFragment(R.id.frame_content,0,fragments);
-        }else {
-            fragments[0]=findFragment(MainFragment.class);
-            fragments[1]=findFragment(HistoryFragment.class);
-            fragments[2]=findFragment(PersonalFragment.class);
+        if (savedInstanceState == null) {
+            fragments[0] = MainParentFragment.newInstance();
+            fragments[1] = HistoryParentFragment.newInstance();
+            fragments[2] = PersonalParentFragment.newInstance();
+            loadMultipleRootFragment(R.id.frame_content, 0, fragments);
+        } else {
+            fragments[0] = findFragment(MainParentFragment.class);
+            fragments[1] = findFragment(HistoryParentFragment.class);
+            fragments[2] = findFragment(PersonalParentFragment.class);
         }
 
         mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int position = 0;
                 switch (item.getItemId()) {
                     case R.id.item_main:
-                       showHideFragment(fragments[0],fragments[prePosition]);
-                        prePosition=0;
-                        mTopBarTitle.setText("笔墨");
+                        showHideFragment(fragments[0], fragments[prePosition]);
+                        prePosition = 0;
+                        position = 0;
                         break;
                     case R.id.item_personal:
-                        showHideFragment(fragments[2],fragments[prePosition]);
-                        prePosition=2;
-                        mTopBarTitle.setText("个人中心");
+                        showHideFragment(fragments[2], fragments[prePosition]);
+                        prePosition = 2;
+                        position = 0;
                         break;
                     case R.id.item_class:
-                        showHideFragment(fragments[1],fragments[prePosition]);
-                        prePosition=1;
-                        mTopBarTitle.setText("历史记录");
+                        showHideFragment(fragments[1], fragments[prePosition]);
+                        prePosition = 1;
+                        position = 0;
                         break;
                     default:
                         break;
+                }
+                SupportFragment currentFragment = fragments[position];
+                int count = currentFragment.getChildFragmentManager().getBackStackEntryCount();
+                if (count > 1) {
+                    if (currentFragment instanceof MainParentFragment) {
+                        currentFragment.popToChild(MainFragment.class, false);
+                    } else if (currentFragment instanceof HistoryParentFragment) {
+                        currentFragment.popToChild(HistoryFragment.class, false);
+                    } else if (currentFragment instanceof PersonalParentFragment) {
+                        currentFragment.popToChild(PersonalFragment.class, false);
+                    }
+                }
+                if (count == 1) {
+                    EventBus.getDefault().post(new EventCenter<>(Constant.EVENT_REFRESH, position));
                 }
                 return true;
             }

@@ -21,8 +21,9 @@ public abstract class BaseSwipeBackFragment<V extends BasePresenter> extends Bas
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ButterKnife.bind(getActivity());
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View rootView=super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this,rootView);
+        return rootView;
     }
 
     @Override
